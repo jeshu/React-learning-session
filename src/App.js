@@ -1,28 +1,41 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux'
+
 import './App.css';
+import { loadData } from './actions';
+import List from './component/List';
 
 class App extends Component {
+  componentDidMount =()=>{
+    this.props.loadData()
+  }
   render() {
+    console.log(this.props);
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <h1>React learning app</h1>
+        {this.props.isLoading ? (<div>loading...</div>) : ("")}
+        <div>
+          <List data={this.props.data} />
+        </div>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  console.log(state);
+  const {list} = state
+  return {
+    ...list    
+  } 
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadData : (params)=>{ dispatch(loadData(params))}
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
