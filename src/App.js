@@ -13,7 +13,7 @@ class App extends Component {
     console.log(this.props);
     return (
       <div className="App">
-        <h1>React learning app</h1>
+        <h1>React session learning application</h1>
         {this.props.isLoading ? (<div>loading...</div>) : ("")}
         <div>
           <List data={this.props.data} />
